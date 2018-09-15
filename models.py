@@ -38,15 +38,13 @@ class User(Base):
         except SignatureExpired:
             #Valid Token, but expired
             return None
-
         except BadSignature:
             #Invalid Token
             return None
-
         user_id = data['id']
         return user_id
 
 
-engine = create_engine('sqlite:///usersWithOAuth.db')
+engine = create_engine('sqlite:///Catalog.db')
 
 Base.metadata.create_all(engine)
