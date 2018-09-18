@@ -96,11 +96,12 @@ def showCategory(catalog_id):
 def showCategoryItem(catalog_id, item_id):
     # Get category item
     categoryItem = session.query(CategoryItem).filter_by(id=item_id).first()
-
+    # if 'username' not in login_session:
+    #     return redirect('/login')
     # Get creator of item
     creator = getUserInfo(categoryItem.user_id)
     return render_template(
-        'categoryItem.html', categoryItem=categoryItem, creator=creator)
+        'categoryItem.html', categoryItem=categoryItem, creator=1)
 
 
 @app.route('/catalog/add', methods=['GET', 'POST'])
@@ -457,5 +458,7 @@ def showCategoryItemJSON(catalog_id, item_id):
 
 if __name__ == '__main__':
     app.debug = True
-    #app.config['SECRET_KEY'] = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
+    app.config['SECRET_KEY'] = ''.join(
+        random.choice(string.ascii_uppercase + string.digits)
+        for x in range(32))
     app.run(host='0.0.0.0', port=5000)
