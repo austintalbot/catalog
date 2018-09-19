@@ -56,6 +56,10 @@ def getUserID(email):
 def showCategories():
     # Get all categories
     categories = session.query(Category).all()
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07e3e9aebae0018d7e4966faf2b2de87700081dc
     return render_template('categories.html', categories=categories)
 
 
