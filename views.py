@@ -208,15 +208,11 @@ def editCatalogItem(category_id, catalog_item_id):
     if editedItem.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not authorized!')}</script><body onload='myFunction()'>"  # noqa
     if request.method == 'POST':
-        if request.form['name']:
-            editedItem.name = request.form['name']
-        if request.form['description']:
-            editedItem.description = request.form['description']
-        if request.form['price']:
-            editedItem.price = request.form['price']
-        if request.form['category']:
-            editedItem.category = request.form['category']
-        session.add(editedItem)
+        editedItem.name = request.form['name']
+        editedItem.description = request.form['description']
+        editedItem.price = request.form['price']
+        editedItem.category = request.form['category']
+        session.UPDATE(editedItem)
         session.commit()
         flash("Catalog item updated!", 'success')
         return redirect(url_for('showCatalog'))
@@ -410,6 +406,8 @@ def gconnect():
 
     login_session['username'] = data['name']
     login_session['picture'] = data['picture']
+    print('Picture: %s' % login_session['picture'])
+
     login_session['email'] = data['email']
     login_session['provider'] = 'google'
 
