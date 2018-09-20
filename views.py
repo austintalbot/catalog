@@ -79,7 +79,7 @@ def showCatalog():
             quantity=quantity)
     else:
         return render_template(
-            'categories.html',
+            'catalog.html',
             categories=categories,
             items=items,
             quantity=quantity)
@@ -287,9 +287,6 @@ def fbconnect():
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
 
-    # strip expire tag from access token
-    token = result.decode().split("&")[0]
-
     url = 'https://graph.facebook.com/v2.8/me?access_token=%s&fields=name,id,email' % access_token
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
@@ -448,10 +445,10 @@ def gdisconnect():
         # del login_session['email']
         # del login_session['picture']
         flash("Successfully disconnected.")
-        return render_template('categories.html')
+        return redirect(url_for('showCatalog'))
     else:
         flash("Failed to revoke token for given user.")
-        return render_template('categories.html')
+        return redirect(url_for('showCatalog'))
 
 
 # User Helper Functions
