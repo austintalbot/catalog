@@ -1,16 +1,20 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <!--LOAD PRE-REQUISITES FOR GOOGLE SIGN IN -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
-    </script>
-    <script src="//apis.google.com/js/platform.js?onload=start">
-    </script>
-    <!-- END PRE-REQUISITES FOR GOOGLE SIGN IN -->
-</head>
-
-<body>
+{% extends "main.html" %}
+{% block content %}
+<div class="jumbotron text-center card card-container">
+    <div id="result"></div>
+    <h2>Please Login</h2>
+    <hr>
+    <div id="signInButton">
+        <span class="g-signin" data-scope="openid email" data-clientid="771521110814-j7t7ap44ve2oldbndek7kk4un44gh7e0.apps.googleusercontent.com"
+            data-redirecturi="postmessage" data-accesstype="offline" data-cookiepolicy="single_host_origin"
+            data-callback="signInCallback" data-approvalprompt="force">
+        </span>
+    </div>
+    <div>
+        <fb:login-button scope="public_profile,email" onlogin="sendTokenToServer();">
+            <a href='javascript:sendTokenToServer()'>Login with Facebook</a>
+        </fb:login-button>
+    </div>
     <script>
         function signInCallback(authResult) {
             if (authResult['code']) {
@@ -92,43 +96,5 @@
             });
         }
     </script>
-
-    <div class="wrapper">
-        <header class="header">
-            <div class="container">
-                <a href="/" class="header__title">
-                    <h1 class="title__text">Udacity Item Catalog</h1>
-                </a>
-                <div class="header__user">
-                    {%if 'username' not in session %}
-                    <a href="{{url_for('login')}}" class="user__nav">
-                        Login
-                    </a>
-                    {% else %}
-                    <a href="{{url_for('logout')}}" class="user__nav">
-                        Logout
-                    </a>
-                    {% endif %}
-                </div>
-            </div>
-        </header>
-        <div class="content">
-            <div id="login" class="container container--login">
-                <fb:login-button size="large" scope="public_profile,email" onlogin="sendTokenToServer();">
-                    <a href='javascript:sendTokenToServer()'>Login with Facebook</a>
-                </fb:login-button>
-
-                <div class="login__separator">OR</div>
-
-                <div id="signInButton">
-                    <span class="g-signin" data-scope="openid email" data-clientid="771521110814-j7t7ap44ve2oldbndek7kk4un44gh7e0.apps.googleusercontent.com"
-                        data-redirecturi="postmessage" data-accesstype="offline" data-cookiepolicy="single_host_origin"
-                        data-callback="signInCallback" data-approvalprompt="force">
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
-
-</html>
+</div>
+{% endblock %}
