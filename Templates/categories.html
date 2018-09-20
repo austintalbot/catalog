@@ -11,7 +11,7 @@
             </h6>
             <ul class="list__items">
                 {% for category in categories %}
-                <a href="{{url_for('showCategory', catalog_id = category.id )}}">
+                <a href="{{url_for('showCatalog', catalog_id = category.id )}}">
                     <li class="items__item">
                         <span class="item__name">{{category.name}}</span>
                     </li>
@@ -22,7 +22,7 @@
     </div>
 
     {% if 'username' in session %}
-    <a href="{{url_for('addCategoryItem')}}" class="button u list__add">Add Item</a>
+    <a href="{{url_for('newCatalogItem')}}" class="button u list__add">Add Item</a>
     {% endif %}
 </div>
 {% endblock %}

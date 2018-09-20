@@ -10,8 +10,8 @@
             <span class="header__bar"></span>
         </h6>
         <form action="#" method="post">
-            <h5 class="category-item__message">Are you sure you want to delete {{categoryItem.name}}?</h5>
-            <a href="{{url_for('showCategoryItem', catalog_id = categoryItem.category_id ,item_id = categoryItem.id )}}"
+            <h5 class="category-item__message">Are you sure you want to delete {{CatalogItem.name}}?</h5>
+            <a href="{{url_for('showCatalogItem', catalog_id = CatalogItem.category_id ,item_id = CatalogItem.id )}}"
                 class="button button-outline">Back</a>
             <input type="submit" value="Delete">
         </form>
