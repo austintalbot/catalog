@@ -43,8 +43,6 @@ def login_required(f):
 
 # --------------------------------------
 # JSON APIs to show Catalog information
-
-
 # --------------------------------------
 @app.route('/catalog/API/V1/JSON')
 def showCatalogJSON():
@@ -259,7 +257,7 @@ def login():
     # Create anti-forgery state token
     state = ''.join(
         random.choice(string.ascii_uppercase + string.digits)
-        for x in range(32))
+        for x in list(range(32)))
     login_session['state'] = state
     return render_template('login.html', STATE=state)
 
@@ -439,11 +437,11 @@ def gdisconnect():
     result = h.request(url, 'GET')[0]
 
     if result['status'] == '200':
-        # del login_session['access_token']
-        # del login_session['gplus_id']
-        # del login_session['username']
-        # del login_session['email']
-        # del login_session['picture']
+        del login_session['access_token']
+        del login_session['gplus_id']
+        del login_session['username']
+        del login_session['email']
+        del login_session['picture']
         flash("Successfully disconnected.")
         return redirect(url_for('showCatalog'))
     else:
@@ -509,6 +507,6 @@ def disconnect():
 if __name__ == '__main__':
     app.config['SECRET_KEY'] = ''.join(
         random.choice(string.ascii_uppercase + string.digits)
-        for x in range(32))
+        for x in list(range(32)))
     app.debug = True
     app.run(host='0.0.0.0', port=5000)
