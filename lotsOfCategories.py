@@ -27,7 +27,7 @@ user1 = User(
     name="Austin Talbot",
     email="austintalbot@gmail.com",
     picture=
-    'https://pbs.twimg.com/profile_images/2671170543/18debd694829ed78203a5a36dd364160_400x400.png'
+    'https://lh5.googleusercontent.com/-E-fRbWcd9eI/AAAAAAAAAAI/AAAAAAAABbE/IdjWqud_cWo/photo.jpg'
 )
 session.add(user1)
 session.commit()

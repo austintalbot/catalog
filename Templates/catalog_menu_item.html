@@ -4,7 +4,7 @@
 {% include "flash_alert.html" %}
 <div>
     <div class="card">
-        <img class="img-thumbnail pull-left" src="http://placehold.it/150" alt="image placeholder" />
+        <!-- <img class="img-thumbnail pull-left" src="http://placehold.it/150" alt="image placeholder" /> -->
         <div class="row">
             <div>
                 <h2>{{item.name}}<br><small>({{ item.category.name }})</small></h2>
@@ -37,8 +37,8 @@
         </div>
         {% if creator %}
         <hr>
-        <div>
-            Created By: {{ creator.email }} <img src="{{ creator.picture }}" alt="creator image" style="height: 40px;" />
+        <div class="creator img">
+            Created By: {{ creator.email }} <img src="{{ creator.picture }}" alt="creator image" style="height: 100px;" />
         </div>
         {% endif %}
     </div>

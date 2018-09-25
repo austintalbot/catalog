@@ -6,16 +6,21 @@
 <div>
     <div>
         <div>
-            <h2>Latest Items
-                <div>
-                    <a href="{{ url_for('newCatalogItem') }}">
-                        <button class="btn">
-                            <span aria-hidden="true"></span>
-                            Add Item
-                        </button>
-                    </a>
-                </div>
-            </h2>
+            <h2>Latest Items</h2>
+            {% for late in latest %}
+            <ul>
+                <li>{{late}}</li>
+            </ul>
+            {% endfor %}
+            <div>
+                <a href="{{ url_for('newCatalogItem') }}">
+                    <button class="btn">
+                        <span aria-hidden="true"></span>
+                        Add Item
+                    </button>
+                </a>
+            </div>
+
         </div>
     </div>
     {% include "catalog_list.html" %}

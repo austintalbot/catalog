@@ -3,19 +3,23 @@
 {% include "header.html" %}
 
 
-<div>
-    <div>
-        <h6>
-            <span>Delete Instrument</span>
-            <span></span>
-        </h6>
-        <form action="#" method="post">
-            <h5>Are you sure you want to delete {{CatalogItem.name}}?</h5>
-            <a href="{{url_for('showCatalogItem', catalog_id = CatalogItem.category_id ,item_id = CatalogItem.id )}}"
-                class="btn">Back</a>
-            <input type="submit" value="Delete">
-        </form>
+
+
+<section class="hero is-small is-danger is-bold">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                <form action="#" method="post">
+                    <h5>Are you sure you want to delete {{CatalogItem.name}}?</h5>
+                    <a href="{{url_for('showCatalogItem', category_id = CatalogItem.category_id ,catalog_item_id = CatalogItem.id )}}"
+                        class="btn">Back</a>
+                    <input type="submit" value="Delete">
+                </form>
+            </h1>
+
+        </div>
     </div>
-</div>
+</section>
+
 
 {% endblock %}

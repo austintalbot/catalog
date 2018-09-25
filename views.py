@@ -29,6 +29,14 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
+latestlist = []
+
+
+# function to capture last five items viewed
+def latest(item):
+    print(item)
+    latestlist.append(item)
+
 
 # Login required decorator
 def login_required(f):
@@ -80,7 +88,8 @@ def showCatalog():
             'catalog.html',
             categories=categories,
             items=items,
-            quantity=quantity)
+            quantity=quantity,
+            latest=latestlist)
 
 
 # CREATE - New category
@@ -168,6 +177,7 @@ def showCatalogItem(category_id, catalog_item_id):
     category = session.query(Category).filter_by(id=category_id).one()
     item = session.query(CategoryItem).filter_by(id=catalog_item_id).one()
     creator = getUserInfo(category.user_id)
+    latest(item.name)
     return render_template(
         'catalog_menu_item.html',
         category=category,
@@ -208,11 +218,15 @@ def editCatalogItem(category_id, catalog_item_id):
     if editedItem.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not authorized!')}</script><body onload='myFunction()'>"  # noqa
     if request.method == 'POST':
-        editedItem.name = request.form['name']
-        editedItem.description = request.form['description']
-        editedItem.price = request.form['price']
-        editedItem.category = request.form['category']
-        session.UPDATE(editedItem)
+        if request.form['name']:
+            editedItem.name = request.form['name']
+        if request.form['description']:
+            editedItem.description = request.form['description']
+        if request.form['price']:
+            editedItem.price = request.form['price']
+        if request.form['category']:
+            editedItem.category_id = request.form['category']
+        session.add(editedItem)
         session.commit()
         flash("Catalog item updated!", 'success')
         return redirect(url_for('showCatalog'))
@@ -239,7 +253,8 @@ def deleteCatalogItem(category_id, catalog_item_id):
         flash('Catalog Item Successfully Deleted', 'success')
         return redirect(url_for('showCatalog'))
     else:
-        return render_template('delete_catalog_item.html', item=itemToDelete)
+        return render_template(
+            'delete_catalog_item.html', CatalogItem=itemToDelete)
 
 
 # --------------------------------------

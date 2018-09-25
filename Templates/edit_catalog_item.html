@@ -2,12 +2,18 @@
 {% block content %}
 {% include "header.html" %}
 <div>
-    <div>
-        <div>
-            <h1>Edit Catalog Item</h1>
-            <hr>
+    <section class="hero is-small is-primary is-bold">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Edit Catalog Item
+                </h1>
+                <h2>
+                    {{item.name}}
+                </h2>
+            </div>
         </div>
-    </div>
+    </section>
     <div>
         <div>
             <form method="post">
@@ -17,23 +23,24 @@
                     <label for="description">Description:</label>
                     <textarea maxlength="250" rows="3" name="description">{{ item.description }}
 					</textarea>
-
                     <label for="price">Price:</label>
                     <div class="input-group">
-                        <div class="input-group-addon">$</div>
                         <input type="text" maxlength="10" name="price" value="{{ item.price }}">
                     </div>
                     {% include "category_form_list.html" %}
+
                     <button type="submit" class="btn" id="submit" type="submit">
-                        <span class="glyphicon glyphicon-glass" aria-hidden="true"></span>Update</button>
-                    <button class="btn">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        <a href="{{ url_for('showCatalog') }}">
-                            Cancel
-                        </a>
-                    </button>
+                        <span aria-hidden="true"></span>Update</button>
+
                 </div>
             </form>
+            <button class="btn">
+                <span aria-hidden="true"></span>
+                <a href="{{ url_for('showCatalog')}}">
+                    Cancel
+                </a>
+            </button>
+
         </div>
     </div>
 </div>
