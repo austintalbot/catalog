@@ -3,16 +3,16 @@
 {% include "header.html" %}
 
 
-<div class="row">
-    <div class="category-item column">
-        <h6 class="category-item__header">
-            <span class="header__title">Delete Instrument</span>
-            <span class="header__bar"></span>
+<div>
+    <div>
+        <h6>
+            <span>Delete Instrument</span>
+            <span></span>
         </h6>
         <form action="#" method="post">
-            <h5 class="category-item__message">Are you sure you want to delete {{CatalogItem.name}}?</h5>
+            <h5>Are you sure you want to delete {{CatalogItem.name}}?</h5>
             <a href="{{url_for('showCatalogItem', catalog_id = CatalogItem.category_id ,item_id = CatalogItem.id )}}"
-                class="button button-outline">Back</a>
+                class="btn">Back</a>
             <input type="submit" value="Delete">
         </form>
     </div>

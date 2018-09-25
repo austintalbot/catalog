@@ -1,6 +1,6 @@
-<div class="form-group">
+<div>
     <label for="Category">Category:</label>
-    <select class="form-control" name="category">
+    <select name="category">
         {% for c in categories %}
         {% if item and item.category_id == c.id %}
         <option id="{{c.id}}" value="{{c.id}}" selected>{{c.name}}</option>

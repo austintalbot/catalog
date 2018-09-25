@@ -1,5 +1,5 @@
-<div class="row top-menu">
-	<div class="col-md-6 text-right">
+<div>
+	<div>
 		{%if 'username' not in session %}
 		<a href="{{url_for('login')}}">Click Here to Login </a>
 		{% else %}
@@ -7,6 +7,6 @@
 		{% endif %}
 
 	</div>
-	<div class="fb-like" data-share="true" data-width="450" data-show-faces="true">
+	<div data-share="true" data-width="450" data-show-faces="true">
 	</div>
 </div>
