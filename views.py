@@ -32,10 +32,18 @@ session = DBSession()
 latestlist = []
 
 
+class itemlist(object):
+    def __init__(self, name, id, category, creator):
+        self.name = name
+        self.id = id
+        self.category_id = category
+        self.creator = creator
+
+
 # function to capture last five items viewed
-def latest(item):
-    print(item)
-    latestlist.append(item)
+def latest(itemlist):
+    print(itemlist)
+    latestlist.append(itemlist)
 
 
 # Login required decorator
@@ -76,7 +84,8 @@ def showCatalog():
     """Returns catalog page with all categories and recently added items"""
     categories = session.query(Category).all()
     items = session.query(CategoryItem).order_by(CategoryItem.id.desc()).all()
-    quantity = items.count("*")
+    quantity = len(items)
+    print(quantity)
     if 'username' not in login_session:
         return render_template(
             'public_catalog.html',
@@ -177,7 +186,12 @@ def showCatalogItem(category_id, catalog_item_id):
     category = session.query(Category).filter_by(id=category_id).one()
     item = session.query(CategoryItem).filter_by(id=catalog_item_id).one()
     creator = getUserInfo(category.user_id)
-    latest(item.name)
+    i = itemlist(item.name, item.id, category_id, creator)
+    print(i.name)
+    print(i.id)
+    print(i.creator)
+    print(i.category_id)
+    latest(i)
     return render_template(
         'catalog_menu_item.html',
         category=category,

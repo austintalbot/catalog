@@ -9,7 +9,10 @@
             <h2>Latest Items</h2>
             {% for late in latest %}
             <ul>
-                <li>{{late}}</li>
+                <a href="{{ url_for('showCatalogItem', category_id=late.category_id, catalog_item_id=late.id) }}">
+                    <li>{{late.name}}</li>
+                </a>
+
             </ul>
             {% endfor %}
             <div>
@@ -23,6 +26,6 @@
 
         </div>
     </div>
-    {% include "catalog_list.html" %}
+    <!-- {% include "catalog_list.html" %} -->
 </div>
 {% endblock %}}
