@@ -13,29 +13,25 @@
             </h2>
         </div>
     </div>
-    <ul>
-        {% for c in categories %}
-        <li>
+
+    {% for c in categories %}
+
+    <div class="columns is-mobile ">
+        <div class="column">
+            <a href="{{ url_for('showCategoryItems', category_id=c.id) }}">{{ c.name }}</a>
+            {% if c.user_id == session.user_id %}
             <div>
-                <div>
-                    <a href="{{ url_for('showCategoryItems', category_id=c.id) }}">{{ c.name }}</a>
-                    {% if c.user_id == session.user_id %}
-                    <div>
-                        <a href="{{ url_for('editCategory', category_id=c.id, catalog_item_id=c.id) }}">
-                            <button class="btn ">
-                                <span aria-hidden="true"></span>
-                            </button>
-                        </a>
-                        <a href="{{ url_for('deleteCategory', category_id=c.id, catalog_item_id=c.id) }}">
-                            <button class="btn ">
-                                <span aria-hidden="true"></span>
-                            </button>
-                        </a>
-                    </div>
-                    {% endif %}
-                </div>
+                <a href="{{ url_for('editCategory', category_id=c.id, catalog_item_id=c.id) }}">
+                    <button class="button is-primary"> Edit</button>
+                </a>
+                <a href="{{ url_for('deleteCategory', category_id=c.id, catalog_item_id=c.id) }}">
+                    <button class="button is-danger"> Delete</button>
+                </a>
             </div>
-        </li>
-        {% endfor %}
-    </ul>
+            {% endif %}
+        </div>
+    </div>
+
+    {% endfor %}
+
 </div>

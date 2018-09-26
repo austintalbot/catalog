@@ -42,7 +42,7 @@ class itemlist(object):
 
 # function to capture last five items viewed
 def latest(itemlist):
-    print(itemlist)
+    print(itemlist) 
     latestlist.append(itemlist)
 
 

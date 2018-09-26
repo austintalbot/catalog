@@ -1,13 +1,8 @@
 {% extends "main.html" %}
 
 {% block content %}
-<div>
-    <a href="{{url_for('showCatalog')}}"> catalog home</a>
-</div>
-<div>
-    <div id="result"></div>
-    <h2>Please Login</h2>
-    <hr>
+{% include "header.html" %}
+<div class="hero is-large">
     <div id="signInButton">
         <span class="g-signin" data-scope="openid email" data-clientid="771521110814-j7t7ap44ve2oldbndek7kk4un44gh7e0.apps.googleusercontent.com"
             data-redirecturi="postmessage" data-accesstype="offline" data-cookiepolicy="single_host_origin"

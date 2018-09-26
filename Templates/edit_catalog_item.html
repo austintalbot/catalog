@@ -1,6 +1,7 @@
 {% extends "main.html" %}
 {% block content %}
 {% include "header.html" %}
+
 <div>
     <section class="hero is-small is-primary is-bold">
         <div class="hero-body">
@@ -8,40 +9,66 @@
                 <h1 class="title">
                     Edit Catalog Item
                 </h1>
-                <h2>
+                <h2 class="subtitle">
                     {{item.name}}
                 </h2>
             </div>
         </div>
     </section>
     <div>
-        <div>
-            <form method="post">
-                <div>
-                    <label for="name">Name:</label>
-                    <input type="text" maxlength="50" name="name" value="{{ item.name }}">
-                    <label for="description">Description:</label>
-                    <textarea maxlength="250" rows="3" name="description">{{ item.description }}
-					</textarea>
-                    <label for="price">Price:</label>
-                    <div class="input-group">
-                        <input type="text" maxlength="10" name="price" value="{{ item.price }}">
-                    </div>
-                    {% include "category_form_list.html" %}
-
-                    <button type="submit" class="btn" id="submit" type="submit">
-                        <span aria-hidden="true"></span>Update</button>
-
+        <form method="post">
+            <!-- name -->
+            <div class="field">
+                <label class="label">Name</label>
+                <div class="control">
+                    <input class="input" type="text" name="name" value="{{item.name}}">
                 </div>
-            </form>
-            <button class="btn">
-                <span aria-hidden="true"></span>
-                <a href="{{ url_for('showCatalog')}}">
-                    Cancel
-                </a>
-            </button>
+            </div>
+            <!-- price -->
+            <div class="field">
+                <label class="label">Price</label>
+                <div class="control has-icons-left">
+                    <input class="input" type="text" maxlength="10" name="price" value="{{ item.price }}">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-dollar-sign"></i>
+                    </span>
+                </div>
+            </div>
+            <!-- description -->
+            <div class="field">
+                <label class="label">Description</label>
+                <div class="control">
+                    <textarea class="textarea" maxlength="250" rows="3" name="description">{{ item.description }}</textarea>
+                </div>
+            </div>
+            <!-- category select -->
+            <div class="field">
+                <div class="control">
+                    <div class="select is-rounded">
+                        <select name="category">
+                            {% for c in categories %}
+                            {% if item and item.category_id == c.id %}
+                            <option id="{{c.id}}" value="{{c.id}}" selected>{{c.name}}</option>
+                            {% else %}
+                            <option id="{{c.id}}" value="{{c.id}}">{{c.name}}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
 
-        </div>
+            <div class="field is-grouped">
+                <!-- submit button -->
+                <div class="control">
+                    <button class="button is-link">Update</button>
+                </div>
+                <!-- Cancel button -->
+                <div class="control">
+                    <button class="button is-text"><a href="{{ url_for('showCatalog')}}">Cancel</a></button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 {% endblock %}

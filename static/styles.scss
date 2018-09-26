@@ -73,7 +73,16 @@ a {
 
 }
 
+
 .flash li {
 	list-style-type: none;
 	text-align: center;
+}
+
+
+.navbar-item img {
+	height: auto;
+	width: auto;
+	max-height: 150px;
+	max-width: 250px;
 }

@@ -2,29 +2,24 @@
     {% if items and quantity > 0 %}
     {% for i in items %}
     <li>
-        <div>
+        <div class="box">
             <div>
                 <span>
                     <a href="{{ url_for('showCatalogItem', category_id=i.category_id, catalog_item_id=i.id) }}">
-                        <h3>{{i.name}}
-                    </a><br><small>({{ i.category.name }})</small>
+                        <h3>{{i.name}} </h3>
+                    </a>
                     {% if i.user_id == session.user_id %}
                     <div>
                         <a href="{{ url_for('editCatalogItem', category_id=i.category_id, catalog_item_id=i.id) }}">
-                            <button class="btn">
-                                <span aria-hidden="true"></span>
-                                Edit
-                            </button>
+                            <button class="button is-primary">Edit</button>
                         </a>
                         <a href="{{ url_for('deleteCatalogItem', category_id=i.category_id, catalog_item_id=i.id) }}">
-                            <button class="btn ">
-                                <span aria-hidden="true"></span>
-                                Delete
+                            <button class="button is-danger ">Delete
                             </button>
                         </a>
                     </div>
                     {% endif %}
-                    </h3>
+
                 </span>
                 {% if creator %}
                 <div>

@@ -12,11 +12,11 @@
                 {% else %}
                 <h2>{{ category.name }} Items ({{ quantity }} item)
                     {% endif %}
+
                     {% if session.user_id %}
                     <div>
                         <a href="{{ url_for('newCatalogItem') }}">
                             <button class="btn">
-                                <span aria-hidden="true"></span>
                                 Add Item
                             </button>
                         </a>
