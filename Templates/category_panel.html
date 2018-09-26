@@ -1,37 +1,30 @@
 <div>
-    <div>
+    <h2>Categories</h1>
         <div>
-            <h2>
-                <a href="{{ url_for('showCatalog') }}">Category</a>
+            <a href="{{ url_for('newCategory') }}">
+                <button class="button is-link ">Create New Category</button>
+            </a>
+            <a href="{{ url_for('newCatalogItem') }}">
+                <button class="button is-primary">Add Item</button>
+            </a>
+        </div>
+
+        {% for c in categories %}
+        <section class="section is-paddingless">
+            <div class="column box">
+                <a href="{{ url_for('showCategoryItems', category_id=c.id) }}">{{ c.name }}</a>
+                {% if c.user_id == session.user_id %}
                 <div>
-                    <a href="{{ url_for('newCategory') }}">
-                        <button class="btn ">
-                            <span aria-hidden="true"></span>
-                        </button>
+                    <a href="{{ url_for('editCategory', category_id=c.id, catalog_item_id=c.id) }}">
+                        <button class="button is-primary"> Edit</button>
+                    </a>
+                    <a href="{{ url_for('deleteCategory', category_id=c.id, catalog_item_id=c.id) }}">
+                        <button class="button is-danger"> Delete</button>
                     </a>
                 </div>
-            </h2>
-        </div>
-    </div>
-
-    {% for c in categories %}
-
-    <div class="columns is-mobile ">
-        <div class="column">
-            <a href="{{ url_for('showCategoryItems', category_id=c.id) }}">{{ c.name }}</a>
-            {% if c.user_id == session.user_id %}
-            <div>
-                <a href="{{ url_for('editCategory', category_id=c.id, catalog_item_id=c.id) }}">
-                    <button class="button is-primary"> Edit</button>
-                </a>
-                <a href="{{ url_for('deleteCategory', category_id=c.id, catalog_item_id=c.id) }}">
-                    <button class="button is-danger"> Delete</button>
-                </a>
+                {% endif %}
             </div>
-            {% endif %}
-        </div>
-    </div>
-
-    {% endfor %}
+        </section>
+        {% endfor %}
 
 </div>

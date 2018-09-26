@@ -7,22 +7,18 @@
 <div>
     <div>
         <div>
-            {% if quantity != 1 %}
             <h2>{{ category.name }} Items ({{ quantity }} items)
-                {% else %}
-                <h2>{{ category.name }} Items ({{ quantity }} item)
-                    {% endif %}
+                {% if session.user_id %}
+                <div>
+                    <a href="{{ url_for('newCatalogItem') }}">
+                        <button class="btn">
+                            Add Item
+                        </button>
+                    </a>
 
-                    {% if session.user_id %}
-                    <div>
-                        <a href="{{ url_for('newCatalogItem') }}">
-                            <button class="btn">
-                                Add Item
-                            </button>
-                        </a>
-                    </div>
-                    {% endif %}
-                </h2>
+                </div>
+                {% endif %}
+            </h2>
         </div>
     </div>
     {% include "catalog_list.html" %}

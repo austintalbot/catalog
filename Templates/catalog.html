@@ -3,29 +3,17 @@
 {% include "header.html" %}
 {% include "flash_alert.html" %}
 {% include "category_panel.html" %}
-<div>
+<section>
     <div>
-        <div>
-            <h2>Latest Items</h2>
-            {% for late in latest %}
-            <ul>
-                <a href="{{ url_for('showCatalogItem', category_id=late.category_id, catalog_item_id=late.id) }}">
-                    <li>{{late.name}}</li>
-                </a>
+        <h2>Latest Items</h2>
+        {% for late in latest %}
+        <ul>
+            <a href="{{ url_for('showCatalogItem', category_id=late.category_id, catalog_item_id=late.id) }}">
+                <li>{{late.name}}</li>
+            </a>
 
-            </ul>
-            {% endfor %}
-            <div>
-                <a href="{{ url_for('newCatalogItem') }}">
-                    <button class="btn">
-                        <span aria-hidden="true"></span>
-                        Add Item
-                    </button>
-                </a>
-            </div>
-
-        </div>
+        </ul>
+        {% endfor %}
     </div>
-    <!-- {% include "catalog_list.html" %} -->
-</div>
+</section>
 {% endblock %}}
