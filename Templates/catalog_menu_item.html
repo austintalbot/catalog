@@ -2,44 +2,45 @@
 {% block content %}
 {% include "header.html" %}
 {% include "flash_alert.html" %}
-<div>
-    <div class="card">
-        <div class="row">
-            <div>
-                <h2>{{item.name}}<br><small>({{ item.category.name }})</small></h2>
-            </div>
-            <div>
-                <h4>${{ item.price }}</h4>
-            </div>
-        </div>
-        <hr>
-        <div>
-            <p>
+
+
+<section class="hero is-small is-primary ">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                {{item.name}}<small>({{ item.category.name }})</small>
+            </h1>
+            <h2 class="subtitle">
+                ${{item.price}}
+            </h2>
+            <h3>
                 {{ item.description }}
-            </p>
-            {% if item.user_id == session.user_id %}
-            <div>
-                <a href="{{ url_for('editCatalogItem', category_id=item.category_id, catalog_item_id=item.id) }}">
-                    <button class="btn">
-                        <span aria-hidden="true"></span>
-                        Edit
-                    </button>
-                </a>
-                <a href="{{ url_for('deleteCatalogItem', category_id=item.category_id, catalog_item_id=item.id) }}">
-                    <button class="btn ">
-                        <span aria-hidden="true"></span>
-                        Delete
-                    </button>
-                </a>
-            </div>
-            {% endif %}
+            </h3>
         </div>
+
+        {% if item.user_id == session.user_id %}
+        <br>
+        <div>
+            <a href="{{ url_for('editCatalogItem', category_id=item.category_id, catalog_item_id=item.id) }}">
+                <button class="button is-link">
+                    Edit
+                </button>
+            </a>
+            <a href="{{ url_for('deleteCatalogItem', category_id=item.category_id, catalog_item_id=item.id) }}">
+                <button class="button is-danger ">
+                    Delete
+                </button>
+            </a>
+        </div>
+        {% endif %}
         {% if creator %}
-        <hr>
         <div class="creator img">
             Created By: {{ creator.email }} <img src="{{ creator.picture }}" alt="creator image" style="height: 100px;" />
         </div>
         {% endif %}
     </div>
-</div>
+</section>
+
+
+
 {% endblock %}

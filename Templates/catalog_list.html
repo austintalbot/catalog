@@ -1,3 +1,4 @@
+<!-- list of the items in the catalog-->
 <ul>
     {% if items and quantity > 0 %}
     {% for i in items %}
@@ -27,6 +28,7 @@
                     {% endif %}
                 </div>
             </div>
+        </div>
     </li>
     {% endfor %}
     {% else %}

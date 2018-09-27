@@ -1,19 +1,10 @@
 {% extends "main.html" %}
 {% block content %}
 {% include "header.html" %}
+<!-- main landing page -->
 {% include "flash_alert.html" %}
+<!-- Panel to display high level categories-->
 {% include "category_panel.html" %}
-<section>
-    <div>
-        <h2>Latest Items</h2>
-        {% for late in latest %}
-        <ul>
-            <a href="{{ url_for('showCatalogItem', category_id=late.category_id, catalog_item_id=late.id) }}">
-                <li>{{late.name}}</li>
-            </a>
-
-        </ul>
-        {% endfor %}
-    </div>
-</section>
+<!-- latest list for logged in users -->
+{% include "catalog_latest.html" %}
 {% endblock %}}
