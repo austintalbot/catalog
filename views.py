@@ -2,6 +2,7 @@ from functools import wraps
 from flask import Flask, render_template, request, redirect, jsonify, url_for, flash, make_response  # noqa
 from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import relationship, sessionmaker
+from collections import deque
 from database_setup import Base, CategoryItem, Category, User
 from flask import session as login_session
 from oauth2client.client import flow_from_clientsecrets
@@ -29,19 +30,44 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-latestlist =[]
+latestlist = []
+
 
 class itemlist(object):
-    def __init__(self, name, id, category, creator):
+    def __init__(self, name, id, category, creator, *args, **kwargs):
         self.name = name
         self.id = id
         self.category_id = category
         self.creator = creator
+        self.start = 0
+        self.end = args
+
+    def __hash__(self):
+        return hash((self.name, self.id, self.category_id, self.creator))
+
+    def __eq__(self, other):
+        if not isinstance(other, type(self)): return NotImplemented
+        return self.name == other.name and self.id == other.id and self.category_id == other.category_id and self.creator == other.creator
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.start >= len(self.end):
+            raise StopIteration
+        else:
+            self.start += 1
+            return self.end[self.start - 1]
 
 
 # function to capture last five items viewed
-def latest(itemlist):
-    latestlist.append(itemlist)
+def latest(items):
+    if items not in latestlist:
+        if len(latestlist) > 4:
+            del latestlist[0]
+            latestlist.append(items)
+        else:
+            latestlist.append(items)
 
 
 # Login required decorator
