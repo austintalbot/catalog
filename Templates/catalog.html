@@ -4,14 +4,7 @@
 <!-- main landing page -->
 {% include "flash_alert.html" %}
 <!-- Panel to display high level categories-->
-<div>
-    <a href="{{ url_for('newCategory') }}">
-        <button class="button is-link ">Create New Category</button>
-    </a>
-    <a href="{{ url_for('newCatalogItem') }}">
-        <button class="button is-primary">Add Item</button>
-    </a>
-</div>
+
 {% include "category_panel.html" %}
 <!-- latest list for logged in users -->
 {% include "catalog_latest.html" %}

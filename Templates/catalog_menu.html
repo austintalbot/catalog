@@ -2,6 +2,7 @@
 {% block content %}
 {% include "header.html" %}
 {% include "flash_alert.html" %}
+
 {% include "category_panel.html" %}
 
 <!-- hero section to display the category and number of items-->
@@ -14,11 +15,13 @@
         </div>
     </div>
 </section>
+{% if session.user_id %}
 <div>
     <a href="{{ url_for('newCatalogItem') }}">
         <button class="button is-primary">Add Item</button>
     </a>
 </div>
+{% endif %}
 <div>
     <!-- list of the items in the catalog-->
     {% include "catalog_list.html" %}
