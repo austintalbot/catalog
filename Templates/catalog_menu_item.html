@@ -21,12 +21,12 @@
         {% if item.user_id == session.user_id %}
         <br>
         <div>
-            <a href="{{ url_for('editCatalogItem', category_id=item.category_id, catalog_item_id=item.id) }}">
+            <a href="{{ url_for('editCatalogItem', category_id=item.category_id, item_id=item.id) }}">
                 <button class="button is-link">
                     Edit
                 </button>
             </a>
-            <a href="{{ url_for('deleteCatalogItem', category_id=item.category_id, catalog_item_id=item.id) }}">
+            <a href="{{ url_for('deleteCatalogItem', category_id=item.category_id, item_id=item.id) }}">
                 <button class="button is-danger ">
                     Delete
                 </button>

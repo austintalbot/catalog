@@ -5,8 +5,8 @@
         <h2 class="title">Latest Items</h2>
         {% for late in latest %}
         <ul>
-            <a class="is-small" href="{{ url_for('showCatalogItem', category_id=late.category_id, catalog_item_id=late.id) }}">
-                <li>{{late.name}}</li>
+            <a class="is-small" href="{{ url_for('showCatalogItem', category_id=late.category_id, item_id=late.id) }}">
+                <li>{{late.name}} ({{late.category}})</li>
             </a>
         </ul>
         {% endfor %}

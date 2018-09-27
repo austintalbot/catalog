@@ -15,6 +15,11 @@
     </div>
 </section>
 <div>
+    <a href="{{ url_for('newCatalogItem') }}">
+        <button class="button is-primary">Add Item</button>
+    </a>
+</div>
+<div>
     <!-- list of the items in the catalog-->
     {% include "catalog_list.html" %}
 </div>

@@ -85,7 +85,6 @@ class CategoryItem(Base):
             'id': self.id,
             'price': self.price,
             'category_id': self.category_id,
-            'category': self.category,
             'user_id': self.user_id
         }
 

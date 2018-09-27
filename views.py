@@ -34,10 +34,12 @@ latestlist = []
 
 
 class itemlist(object):
-    def __init__(self, name, id, category, creator, *args, **kwargs):
+    def __init__(self, name, id, category_id, category, creator, *args,
+                 **kwargs):
         self.name = name
         self.id = id
-        self.category_id = category
+        self.category_id = category_id
+        self.category = category
         self.creator = creator
         self.start = 0
         self.end = args
@@ -84,18 +86,42 @@ def login_required(f):
 # --------------------------------------
 # JSON APIs to show Catalog information
 # --------------------------------------
-@app.route('/catalog/API/V1/JSON')
-def showCatalogJSON():
-    """Returns JSON of all items in catalog"""
+@app.route('/categories/api/')
+def showAPI():
     categories = session.query(Category).all()
-    return jsonify(categories=[category.serialize for category in categories])
+    items = session.query(CategoryItem).all()
+    quantity = len(items)
+    return render_template(
+        'json.html', categories=categories, items=items, quantity=quantity)
 
 
-@app.route('/catalog/<int:catalog_id>/items/<int:item_id>/JSON')
-def showCatalogItemJSON(catalog_id, item_id):
+@app.route('/categories/JSON')
+def showCatalogJSON():
+    """Returns JSON of all categories and items in the catalog"""
+    items = session.query(Category).all()
+    return jsonify(Categories=[i.serialize for i in items])
+
+
+@app.route('/categories/<int:item_id>/JSON')
+def showCatalogItemJSON(item_id):
     """Returns JSON of selected item in catalog"""
-    categoryItem = session.query(CategoryItem).filter_by(id=item_id).first()
-    return jsonify(categoryItem=[categoryItem.serialize])
+    item = session.query(CategoryItem).filter_by(id=item_id).one()
+    print(item.serialize)
+    return jsonify(categoryItem=item.serialize)
+
+
+@app.route('/categories/all/JSON')
+def categoriesJSON():
+    """Returns JSON of all categories and items in catalog"""
+    items = session.query(CategoryItem).all()
+    return jsonify(Categories=[r.serialize for r in items])
+
+
+@app.route('/categories/Users/JSON')
+def UsersJSON():
+    """Returns JSON of all categories and items in catalog"""
+    users = session.query(User).all()
+    return jsonify(Categories=[r.serialize for r in users])
 
 
 # --------------------------------------
@@ -204,17 +230,18 @@ def showCategoryItems(category_id):
 
 
 # READ ITEM - selecting specific item show specific information about that item
-@app.route('/categories/<int:category_id>/item/<int:catalog_item_id>/')
-def showCatalogItem(category_id, catalog_item_id):
+@app.route('/categories/<int:category_id>/item/<int:item_id>/')
+def showCatalogItem(category_id, item_id):
     """returns category item"""
     category = session.query(Category).filter_by(id=category_id).one()
-    item = session.query(CategoryItem).filter_by(id=catalog_item_id).one()
+    item = session.query(CategoryItem).filter_by(id=item_id).one()
     creator = getUserInfo(category.user_id)
-    i = itemlist(item.name, item.id, category_id, creator)
+    i = itemlist(item.name, item.id, category_id, category.name, creator)
     print(i.name)
     print(i.id)
     print(i.creator)
     print(i.category_id)
+    print(i.category)
     latest(i)
     return render_template(
         'catalog_menu_item.html',
@@ -246,13 +273,12 @@ def newCatalogItem():
 
 # UPDATE ITEM
 @app.route(
-    '/categories/<int:category_id>/item/<int:catalog_item_id>/edit',
+    '/categories/<int:category_id>/item/<int:item_id>/edit',
     methods=['GET', 'POST'])
 @login_required
-def editCatalogItem(category_id, catalog_item_id):
+def editCatalogItem(category_id, item_id):
     """return "This page will be for making a updating catalog item" """
-    editedItem = session.query(CategoryItem).filter_by(
-        id=catalog_item_id).one()
+    editedItem = session.query(CategoryItem).filter_by(id=item_id).one()
     if editedItem.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not authorized!')}</script><body onload='myFunction()'>"  # noqa
     if request.method == 'POST':
@@ -276,13 +302,12 @@ def editCatalogItem(category_id, catalog_item_id):
 
 # DELETE ITEM
 @app.route(
-    '/categories/<int:category_id>/item/<int:catalog_item_id>/delete',
+    '/categories/<int:category_id>/item/<int:item_id>/delete',
     methods=['GET', 'POST'])
 @login_required
-def deleteCatalogItem(category_id, catalog_item_id):
+def deleteCatalogItem(category_id, item_id):
     """return "This page will be for deleting a catalog item" """
-    itemToDelete = session.query(CategoryItem).filter_by(
-        id=catalog_item_id).one()
+    itemToDelete = session.query(CategoryItem).filter_by(id=item_id).one()
     if itemToDelete.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not authorized!')}</script><body onload='myFunction()'>"  # noqa
     if request.method == 'POST':
