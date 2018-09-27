@@ -98,8 +98,8 @@ def showAPI():
 @app.route('/categories/JSON')
 def showCatalogJSON():
     """Returns JSON of all categories and items in the catalog"""
-    items = session.query(Category).all()
-    return jsonify(Categories=[i.serialize for i in items])
+    categories = session.query(Category).all()
+    return jsonify(Categories=[i.serialize for i in categories])
 
 
 @app.route('/categories/<int:item_id>/JSON')
@@ -107,21 +107,21 @@ def showCatalogItemJSON(item_id):
     """Returns JSON of selected item in catalog"""
     item = session.query(CategoryItem).filter_by(id=item_id).one()
     print(item.serialize)
-    return jsonify(categoryItem=item.serialize)
+    return jsonify(item=item.serialize)
 
 
 @app.route('/categories/all/JSON')
 def categoriesJSON():
     """Returns JSON of all categories and items in catalog"""
     items = session.query(CategoryItem).all()
-    return jsonify(Categories=[r.serialize for r in items])
+    return jsonify(items=[r.serialize for r in items])
 
 
 @app.route('/categories/Users/JSON')
 def UsersJSON():
     """Returns JSON of all categories and items in catalog"""
     users = session.query(User).all()
-    return jsonify(Categories=[r.serialize for r in users])
+    return jsonify(users=[r.serialize for r in users])
 
 
 # --------------------------------------

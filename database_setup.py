@@ -49,7 +49,7 @@ class User(Base):
     @property
     def serialize(self):
         """Return object data in easily serializeable format"""
-        return {'name': self.name, 'email': self.email, 'id': self.id}
+        return {'name': self.name, 'id': self.id}
 
 
 class Category(Base):
