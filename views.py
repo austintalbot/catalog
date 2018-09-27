@@ -29,8 +29,7 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-latestlist = []
-
+latestlist =[]
 
 class itemlist(object):
     def __init__(self, name, id, category, creator):
@@ -42,7 +41,6 @@ class itemlist(object):
 
 # function to capture last five items viewed
 def latest(itemlist):
-    print(itemlist)
     latestlist.append(itemlist)
 
 

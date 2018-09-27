@@ -1,14 +1,7 @@
 <!-- Panel to display high level categories-->
 <div>
     <h2>Categories</h1>
-        <div>
-            <a href="{{ url_for('newCategory') }}">
-                <button class="button is-link ">Create New Category</button>
-            </a>
-            <a href="{{ url_for('newCatalogItem') }}">
-                <button class="button is-primary">Add Item</button>
-            </a>
-        </div>
+
 
         {% for c in categories %}
         <section class="section is-paddingless">
