@@ -124,6 +124,15 @@ def UsersJSON():
     return jsonify(users=[r.serialize for r in users])
 
 
+@app.route('/sitemap')
+def showSitemap():
+    categories = session.query(Category).all()
+    items = session.query(CategoryItem).all()
+    quantity = len(items)
+    return render_template(
+        'sitemap.html', categories=categories, items=items, quantity=quantity)
+
+
 # --------------------------------------
 # CRUD for categories
 # --------------------------------------
@@ -587,4 +596,4 @@ if __name__ == '__main__':
         random.choice(string.ascii_uppercase + string.digits)
         for x in list(range(32)))
     app.debug = True
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=8000)
