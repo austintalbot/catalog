@@ -52,15 +52,15 @@ You will develop an application that provides a list of items within a variety o
 
 #### CRUD for category items
 
-`/categories/<int:category_id>/` or `/categories/<int:category_id>/items/` - returns items in category
+`/categories/<int:category_id>/` or `/categories/<int:category_id>/items/` - diplays a category and a list of items in the catalog
 
-`/categories/<int:category_id>/item/<int:catalog_item_id>/` - returns category item
+`/categories/<int:category_id>/item/<int:catalog_item_id>/` - diplays an item in the catalog
 
 `/categories/item/new` - Allows user to create a new item and associate it with any category that is created.
 
-`/categories/<int:category_id>/item/<int:catalog_item_id>/edit` - return "This page will be for making a updating catalog item"
+`/categories/<int:category_id>/item/<int:catalog_item_id>/edit` - Allows user to update an item (login required)
 
-`/categories/<int:category_id>/item/<int:catalog_item_id>/delete` - return "This page will be for deleting a catalog item"
+`/categories/<int:category_id>/item/<int:catalog_item_id>/delete` - Allows user to delete an item (login required)
 
 #### --------------------------------------
 
